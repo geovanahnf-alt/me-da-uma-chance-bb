@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Apollo 💌</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  font-family:Arial,sans-serif;background:linear-gradient(135deg,#ffd6e7,#fff5f9);
+  color:#4a2635;overflow:hidden;
+}
+.screen{
+  width:min(92%,430px);min-height:620px;padding:42px 28px;
+  background:rgba(255,255,255,.82);border-radius:30px;
+  box-shadow:0 15px 45px rgba(155,66,101,.18);
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;
+}
+.screen.active{display:flex;animation:fade .7s ease}
+.emoji{font-size:58px;margin-bottom:20px}
+.small{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#b66b88;margin-bottom:15px}
+h1{font-size:31px;line-height:1.2;margin-bottom:14px}
+p{font-size:17px;line-height:1.6}
+button{
+  margin-top:30px;border:0;border-radius:999px;padding:15px 25px;
+  background:#d96b95;color:white;font-size:16px;font-weight:bold;
+  cursor:pointer;box-shadow:0 8px 20px rgba(217,107,149,.3);
+}
+button:active{transform:scale(.97)}
+.message{min-height:175px;display:flex;align-items:center;justify-content:center}
+.music{
+  margin-top:18px;padding:14px 18px;border-radius:18px;
+  background:#fff0f6;width:100%;font-size:14px;color:#8e526b;
+}
+.music strong{display:block;font-size:16px;color:#5c3043;margin-bottom:4px}
+.final-heart{font-size:72px;animation:pulse 1.4s infinite}
+.final h1{font-size:38px}
+.signature{margin-top:20px;color:#a45c79;font-style:italic}
+.heart{
+  position:absolute;font-size:20px;animation:float 7s linear infinite;
+  opacity:.55;pointer-events:none;
+}
+@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{transform:scale(1.12)}}
+@keyframes float{from{transform:translateY(110vh) rotate(0deg)}to{transform:translateY(-15vh) rotate(360deg)}}
+iframe{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+
+<div class="heart" style="left:8%;animation-delay:0s">♡</div>
+<div class="heart" style="left:25%;animation-delay:2s">♡</div>
+<div class="heart" style="left:52%;animation-delay:4s">♡</div>
+<div class="heart" style="left:78%;animation-delay:1s">♡</div>
+<div class="heart" style="left:90%;animation-delay:3s">♡</div>
+
+<section class="screen active" id="screen1">
+  <div class="emoji">💌</div>
+  <div class="small">uma mensagem para você</div>
+  <h1>Apollo, posso te falar uma coisa?</h1>
+  <p>Prometo que é rapidinho...</p>
+  <button onclick="nextScreen()">abrir mensagem</button>
+</section>
+
+<section class="screen" id="screen2">
+  <div class="small">antes de continuar...</div>
+  <div class="message"><p id="typing"></p></div>
+  <div class="music">
+    <strong>🎶 Piloto — Flora Matos</strong>
+    uma trilha para esse momento
+  </div>
+  <button onclick="nextScreen()">continuar 💗</button>
+  <iframe id="musicFrame" allow="autoplay"></iframe>
+</section>
+
+<section class="screen final" id="screen3">
+  <div class="final-heart">❤️</div>
+  <div class="small">então...</div>
+  <h1>me dá uma chance?</h1>
+  <p>Não sei onde isso pode chegar, mas eu queria descobrir. com você.</p>
+  <div class="signature">— Geo 💌</div>
+</section>
+
+<script>
+let current=1;
+const text="Apollo, eu não sei exatamente onde isso vai dar, mas sei que fiquei com vontade de descobrir. Então resolvi deixar o orgulho de lado e te fazer uma pergunta simples...";
+let started=false;
+
+function nextScreen(){
+  document.getElementById("screen"+current).classList.remove("active");
+  current++;
+  document.getElementById("screen"+current).classList.add("active");
+
+  if(current===2 && !started){
+    started=true;
+    document.getElementById("musicFrame").src=
+      "https://www.youtube.com/embed/lfWg_lV28d0?autoplay=1&loop=1&playlist=lfWg_lV28d0&controls=0&playsinline=1";
+    typeText();
+  }
+}
+
+function typeText(){
+  const el=document.getElementById("typing");
+  let i=0;
+  function type(){
+    if(i<text.length){
+      el.textContent+=text[i++];
+      setTimeout(type,28);
+    }
+  }
+  type();
+}
+</script>
+</body>
+</html>
